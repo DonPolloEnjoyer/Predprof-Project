@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -563,7 +563,7 @@ def blanklog():
     return render_template("Blank1.html", username=user, log=log,
     isadmin=IsAdmin1())
 
-# host='10.145.87.72'
+# host=''
 # port = 3306
 # flask --app app run --host="" --port=3306 --debug
 
