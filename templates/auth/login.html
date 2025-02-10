@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta lang="ru">
+        <title>Авторизация | учёт инвентаря</title>
+        <link rel="stylesheet" href="/static/StyleDef.css">
+        <link rel="icon" type="image" href="/static/img1/Favicon1.png">
+        <meta name="Автор" content="Крылов Игорь">
+        <meta name="Команда" content="Добро">
+
+    </head>
+    <body class="main1">
+        
+    <main>
+    <div style="display: flex; justify-content: end;">
+        <a href="{{ url_for('logout') }}" class="whiteText"
+        style="display: block; margin: 20px 30px 0 0;">
+        Выйти
+    </a>
+    </div>
+    <div class="CenPar">
+        <div class="lightFill1 Dshadow1" style="display: flex; flex-direction: row;
+        height: 85px; margin-top: 10px; justify-content: center; width: var(--RegNeedWidth);"
+        id="NotAuth1">
+        <p class="whiteText GrayRect" style="margin: 0% 10% 0% 10%;
+        padding: 20px 40px 20px 40px;  font-size: 38px;
+        ">Авторизация</p>
+        </div>
+        <div class="divFlexCol">
+        <form id="aform" method="post">
+        <div class="GrayRect divFlexCol Dshadow1"
+        style="margin-top: 56px; padding: 4px 30px 36px 30px; ">
+        <div class="divFlexCol" style="align-items: flex-start">
+            <label for="username" class="LeftAsside1 whiteText" style="margin-left: 0px;
+            /* padding-right: calc(120px + 115px); */
+            margin-top: calc(8% + 16px);"
+            >Логин: </label>
+            <input id="username" name="username" class="inDark inpPad1 " type="text"  size="30" height="50px" 
+            style="margin-top: 10px;" 
+            >
+            <div style="display: flex;flex-direction: row;">
+
+                <label for="password" class="LeftAsside1 whiteText" style="
+                /* padding-right: calc(100px + 115px); */
+                margin-top: calc(8% + 16px);"
+                >Пароль: </label>
+                    <input style="padding-left: 2px;"
+                    type="button" id="Vis1" value="пароль">
+                    <!-- <button id="Vis1">пароль</button> -->
+                
+            </div>
+            <input id="password" class="inDark inpPad1" type="password" size="30" height="50px"
+            style="margin-top: 10px;" name="password">
+            <p class="whiteText" id="Passwarn1" style="width: 365px; display: flex;
+            margin: 10px 0 0 0; font-size: 18px; align-content:flex-start;"></p>
+            <!-- {% for message in get_flashed_messages() %}
+            <div class="flash whiteText" style="font-size: 10px;">{{ message }}</div>
+            {% endfor %} -->
+            {% if error %}
+            <div class="flash whiteText" style="font-size: 32px;
+            color: red; width: 360px;">{{ error }}</div>
+            {% endif %}
+            
+            
+        </div>
+            <button id="Auth1"  class="defBut1 Dshadow1 GreenHov Zdvig1" type="button" style="height: 70px; margin-top: 56px;
+            align-items: center; display: flex; justify-content: center;" >
+                <p id="Enter1" class="whiteText GreenHov" style="font-size: 30px; margin: 0 0 0 0;">
+                Войти
+                </p> </button>
+            <!-- <script type="text/javascript" src="Img/fcheck1.js"></script> -->
+            <script type="text/javascript" src="/static/script.js"></script>
+            <script type="text/javascript" src="/static/acheck3.js"></script>
+            <!-- <input class="Dshadow1 defBut1" type="submit" style="margin-top: 30px;
+            height: 50px;"> -->
+            
+        </div>
+        </form>
+        <a class="aDecorNone defBut1"  href="index1" style="height: 70px;
+        margin-top: 56px; ">
+            <button class="defBut1 Dshadow1 GreenHov Zdvig1"
+            style="height: 70px; display: flex;
+            align-items: center; justify-content: center;" >
+                <p class="whiteText GreenHov" style="font-size: 30px;">Назад</p> 
+            </button>
+        </a>  
+        </div>
+
+    </div>
+
+    </main>
+
+    </body>
+
+</html>
+<style>
+    
+</style>
+
+<!-- Server ready 1.0 -->

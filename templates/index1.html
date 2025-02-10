@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta lang="ru">
+    <title>Учёт инвентаря | регистрация/авторизация</title>
+    <link rel="icon" type="image/png" href="/static/img/1Favicon1.png">
+    <link rel="stylesheet"  href="/static/StyleDef.css">
+    <meta name="Автор" content="Крылов Игорь">
+    <meta name="Команда" content="Добро">
+</head>
+<body class="main1">
+
+<main>
+<div class="CenPar">
+    <div class="lightFill1 Dshadow1" style="display: flex; flex-direction: row;
+    height: 85px; margin-top: 3%; justify-content: center;">
+    <p class="whiteText GrayRect" style="margin: 0% 10% 0% 10%;
+    padding: 20px 20px 20px 20px;  font-size: 38px;
+    /* box-shadow: 15px 0 23px  black, -15px 0 23px black ; */
+    ">Учёт инвентаря</p>
+    </div>
+<div class="Dshadow1 GrayRect" id="RegNeed1" >
+    <p class="whiteText" id="NotAuth1">Для начала нужно войти</p>
+</div>
+    <div id="regAuth1">
+        <a class="aDecorNone defBut1" style="margin-right: 0px; height: 160px; background: none;"
+        href="/register">
+            <button id="Redleft" name="regOpen" id="regO" type="button" class="defBut1 Dshadow1 Zdvig1"
+            style="margin-left: 0px; height: 160px;">
+                
+                    <p id="Redleft" class="whiteText" style="font-size: 39px;"
+                    >регистрация</p>
+            </button>
+        </a>
+        <div style="display: block; width: var(--InvDiv1w1); height: 0;"></div>
+        <a  class="aDecorNone defBut1" style="margin-left: 0px; height: 160px;"
+        href="/login">
+            <button id="Blueright" name="authOpen" id="authO" type="button" class="defBut1 Dshadow1 Zdvig1"
+            style=" height: 160px;">
+            <p id="Blueright" class="whiteText" style="font-size: 39px;"
+            >авторизация</p>
+            </button>
+        </a>
+
+    </div>
+</div>
+
+</main>
+
+</body>
+
+</html>
+<style>
+    #NotAuth1 {
+    font-size: calc(var(--RegNeedWidth)/15);
+    text-align: center;
+    margin-top: calc(var(--RegNeedWidth)/15 + 5px);
+    /* padding-top: 55px; */
+    }
+    #RegNeed1 {
+    width: var(--RegNeedWidth);
+    /* width: 490px; */
+    margin-top: 11%;
+    height: 160px;}
+    #regAuth1 {
+    display: flex;
+    flex-direction: row;
+    /* margin-top: 50px; */
+    margin-top: 50px;}
+    #Redleft:hover {
+        color: red;
+        border-color: red;
+
+    }
+    #Blueright:hover {
+        color: dodgerblue;
+        border-color: dodgerblue;
+    }
+
+</style>
+
+<!-- Server ready 1.0 -->
+

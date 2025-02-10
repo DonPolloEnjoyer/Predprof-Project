@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta lang="ru">
+    <title>Добро пожаловать! | учёт инвентаря</title>
+    <link rel="stylesheet" href="/static/StyleDef.css">
+    <link rel="icon" type="image" href="/static/img/1Favicon1.png">
+    <meta name="Автор" content="Крылов Игорь">
+    <meta name="Команда" content="Добро">
+</head>
+<body class="main1">
+    <!-- <script src="/static/script.js"></script> -->
+    <div class="CenPar" style="align-items: center;">
+      <div class="lightFill1 Dshadow1" style="display: flex; flex-direction: row;
+      height: max-content; margin: 70px 0 30px 0; justify-content: center; width: var(--RegNeedWidth);"
+      id="NotAuth1">
+      <p class="whiteText GrayRect" style="margin: 0% 10% 0% 10%;
+      padding: 20px 40px 20px 40px;  font-size: 38px;
+      ">Добро пожаловать, {{ username }}!</p>
+      </div>
+      {% if error %}
+      <div class="GrayRect Dshadow1" style="padding: 5px 20px 5px 20px;">
+        <p class="whiteText" style="color: red;font-size: 24px;">{{error}}</p>
+      </div>
+      {% endif %}
+      <a class="aDecorNone" style="background: none;
+      margin: 30px 0px 30px 0px; height: 108px;" href="/view">
+        <button class="defBut1 Dshadow1 Zdvig1 GreenHov CenPar" style="
+        width: max-content; padding: 0 20px 0 20px;" type="submit">
+          <p class="whiteText GreenHov">Загрузить список</p>
+        </button>
+      </a>
+      {% if isadmin %}
+      <a class="aDecorNone" style="background: none;
+      margin: 30px 0px 30px 0px; height: 108px;" href="/blank/log">
+        <button class="defBut1 Dshadow1 Zdvig1 GreenHov CenPar" style="
+        width: max-content; padding: 0 20px 0 20px;" type="submit">
+          <p class="whiteText GreenHov">Создать отчёт</p>
+        </button>
+      
+      </a>
+        {% if log %}
+        <div  class="GrayRect Dshadow1 divFlexCol" style="width: 50vw; min-width: fit-content;
+        margin: 20px; padding: 16px;" >
+          <textarea id="fulllog" style="min-width: 100px; width: calc(50vw + 100px);
+          height: calc(20vh + 100px); background-color: black;color: white;">
+{{log}}</textarea>
+          <p id="fulllog1" style="display: none;">
+{{log}}</p>
+          <!-- <button id="copy" class="defBut1" style="width: auto; margin: 10px;
+          color: yellowgreen;">Скопировать</button>
+          <script>
+            document.getElementById("copy").onclick =
+            function copyto(){
+              var textf = document.getElementById("fulllog1");
+              navigator.clipboard.writeText(textf.value);
+            };
+          </script> -->
+        </div>
+        {% endif %}
+      {% endif %}
+      <div class="GrayRect divFlexCol Dshadow1"
+      style="width: min-content; padding: 20px 30px 20px 30px; margin: 30px 0 0 0;">
+        <a class="whiteText aDecorNone GreenHov" href="{{ url_for('register') }}">Регистрация</a><br>
+        <a class="whiteText aDecorNone GreenHov" href="{{ url_for('login') }}">Авторизация</a><br>
+        <a class="whiteText aDecorNone GreenHov" href="{{ url_for('logout') }}">Выйти</a>
+      </div>
+  </div>
+    <div class="CenPar">
+        {% for message in get_flashed_messages() %}
+        <div class="flash whiteText" style="font-size: 18px;">{{ message }}</div>
+        {% endfor %}
+    </div>
+    
+
+</body>
+</html>
+
+
+<!-- Server ready 0.0 -->
+

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta lang="ru">
+    <title>Просмотр спортивного инвентаря | учёт инвентаря</title>
+    <link rel="stylesheet" href="/static/StyleDef.css">
+    <link rel="icon" type="image" href="/static/img/1Favicon1.png">
+    <meta name="Автор" content="Крылов Игорь">
+    <meta name="Команда" content="Добро">
+    <!-- <meta name="viewport" content="width=device-width"> -->
+</head>
+<body class="main1">
+    <div style="display: flex; justify-content: end;">
+        <p class="whiteText font20px"style="display: block;
+        margin: 30px 20px 0 0;">{{session["user_login"]}}</p>
+        <a href="{{ url_for('blank') }}" class="whiteText"
+        style="display: block; margin: 20px 30px 0 0; ">Назад</a>
+        <a href="{{ url_for('logout') }}" class="whiteText"
+        style="display: block; margin: 20px 30px 0 0;">
+        Выйти
+    </a>
+    </div>
+    <script src="/static/script.js"></script>
+    <div class="CenPar" style="align-items: center">
+        <div class="lightFill1 Dshadow1" style="display: flex; flex-direction: row;
+        height: max-content; margin: 35px 0 30px 0; justify-content: center; width: var(--RegNeedWidth);"
+        id="NotAuth1">
+        <p class="whiteText GrayRect" style="margin: 0% 10% 0% 10%;
+        padding: 20px 40px 20px 40px;  font-size: 38px;
+        ">Просмотр инвентаря</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+        {% if not isadmin %}
+        <!-- USER -->
+        {% if not items %}
+        <p style="color: gray; font-family: sans-serif;font-style: italic;
+        margin-top: calc(50vh - 210px); font-size:calc(4vh + 2vw);">Пусто...</p>
+        {% endif %}
+        {% for item in items %}
+        <div id="{{item['item_id']}}" class="GrayRect Dshadow1" style="width: fit-content; margin: 10px 0 12px 0;
+        display: flex; height: 90px; border: 2px solid black;
+        padding: 0 15px 0 0; min-height: fit-content; min-width: fit-content; width: calc(100vw - 200px);
+        height: calc(14vh + 20px);">
+          <div class="divFlexCol" style="margin: 0 0 0 0px;align-items: flex-start;">
+            <p class="whiteText texthere1">{{ item["item_title"] }}</p>
+            <p class="whiteText texthere1">Кол. {{ item["item_number"] }}</p>
+          </div>
+          <div class="divide1"></div>
+          <div class="divFlexCol " style="margin: 0 0 0 20px;align-items: flex-start;">
+              <p id="c{{item['item_id']}}" class="whiteText font20px sm2">Состояние: {{ item["item_cond"]}}</p>
+              <p class="whiteText font20px sm2">Владелец: {{ item["item_req"]}}</p>
+            <div style="display: flex;">
+            <form method="post" action="/view/reqnew/{{item['item_id']}}" class="sm2">
+              <input class="defBut1 GreenHov" type="number" id="nnum{{item['item_id']}}" name="nnum{{item['item_id']}}" placeholder=" Количество"
+              style="width: auto;color: white; margin: 5px 6px 5px 0px;" required>
+              <input class="defBut1 GreenHov" type="submit" id="submit{{item['item_id']}}" value="Запросить"
+              style="width: auto;color: rgb(147, 202, 38); margin: 5px 6px 5px 0px;">
+              
+            </form>
+            </div>
+          </div>
+          <!-- <p class="whiteText">{{users["invid"]}} {{item["item_id"]}}</p> -->
+          {% if users["invid"]|int() == item["item_id"]|int() %}
+          <p class="whiteText texthere1">Статус заявки: {{users["status"]}}</p>
+            {% if error %}
+            <p class="whiteText texthere1">{{error}}</p>
+            {% endif %}
+          {% endif %}
+        </div>
+        {% if item['item_cond']|string() == "новый" %}
+        <script>document.getElementById("{{item['item_id']}}").style.borderColor = "yellowgreen" </script>
+        <script>document.getElementById("c{{item['item_id']}}").style.color = "yellowgreen" </script>
+        {% elif item['item_cond']|string() == "используемый" %}
+        <script>document.getElementById("{{item['item_id']}}").style.borderColor = "#ffff00" </script>
+        <script>document.getElementById("c{{item['item_id']}}").style.color = "#ffff00" </script>
+        {% else %}
+        <script>document.getElementById("{{item['item_id']}}").style.borderColor = "red" </script>
+        <script>document.getElementById("c{{item['item_id']}}").style.color = "red" </script>
+        {% endif %}
+
+        {% endfor %}
+        {% endif %}
+        </div>
+
+        <!-- ADMIN -->
+        {% if isadmin %} 
+        {% for item in items %}
+        <!-- FULL -->
+        <div style="display: flex; flex-direction: column; align-items: center; 
+        width: calc(100vw - 200px); min-height: fit-content; min-width: fit-content;">
+        <div id="{{item['item_id']}}" class="GrayRect Dshadow1 divFlexCol" style="margin: 6px 0 6px 0;display: flex; height: 130px;
+        border: 2px solid black; width: calc(100vw - 200px); height: calc(16vh + 20px); min-height: fit-content;
+        align-items: flex-start; min-width: fit-content;">
+        <div  style="
+        display: flex; ">
+        
+          <div class="divFlexCol" style="align-items: flex-start;width: 100px;min-width: fit-content;
+          max-width: 100px;">
+            <p class="whiteText texthere1">{{ item["item_title"] }}</p>
+            <p class="whiteText texthere1">Кол. {{ item["item_number"] }}</p>
+          </div>
+          <div class="divide1"></div>
+          <div class="divFlexCol" style="margin: 0 0 0 10px; width: 310px;">
+              <div  class="divFlexCol">
+                <p id="c{{item['item_id']}}" class="whiteText texthere1" style="color: yellowgreen;">Состояние: {{ item["item_cond"] }}</p>
+              <form method="post" action="/view/cond/{{ item['item_id'] }}" style="display: flex;">
+                <input id="new" name="{{ item['item_title'] }}"  type="radio" value="новый">
+                <label class="intext1" for="new">Новый</label>
+                <input id="use" name="{{ item['item_title'] }}"  type="radio" value="используемый">
+                <label class="intext1" for="new">Использ.</label>
+                <input id="bad" name="{{ item['item_title'] }}"  type="radio" value="сломанный">
+                <label class="intext1" for="new">Сломанный</label>
+                <input class="defBut1 GreenHov" style="width: auto; color: yellowgreen; margin-left: 10px;"  type="submit" value="Ок">
+              </form>
+            </div>
+          </div>
+          <form method="post" action="/view/item/{{ item['item_id'] }}" class="divFlexCol" style="margin: 15px 0px 0 10px;"> 
+            <input size="10" style="width: 100px;" class="sm1 inDark" type="text" id="{{ item['item_title'] }}" name="{{ item['item_title'] }}" placeholder=" Название" >
+            <input style="width: 100px;" class="sm1 inDark" id="num{{item['item_id']}}" name="num{{ item['item_id'] }}" type="number" placeholder=" Количество" >
+            <input class="defBut1 GreenHov sm1" style="width: 100px; color: yellowgreen;" type="submit" value="Изменить">
+          </form>
+          <div class="divFlexCol" style="margin: 2px 0px 0 10px; padding: 0 0px 0 0;">
+            <form method="post" action="/view/use/{{ item['item_id'] }}" class="divFlexCol" style="padding: 0px 25px 0px 0px;">
+              <p class="intext1">Владелец: {{ item['item_req'] }}</p>
+              <input style="width: 100px;" size="10" class="sm1 inDark" type="text" id="useby" name="use{{ item['item_id'] }}" placeholder=" Владелец" >
+              <input id="newuser"  class="defBut1 GreenHov sm1" style="width: 100px; color: yellowgreen;margin-top: 2px;" type="submit" value="Применить">
+                  
+              </form>
+            <form method="post" action="/view/del/{{ item['item_id'] }}" style="margin: 0 0px 0 0px; padding-right: 25px;">
+              <input id="delete" class="defBut1 GreenHov sm1" style="width: 100px; color: red;margin-top: 2px;" type="submit" value="Удалить">
+            </form>
+          </div>
+        </div>
+        </div>
+
+        <div class="divFlexCol" style="margin: 1px 0 16px 0; justify-content: center;">
+          {% for u in users %}
+          {% if u[0]|int() == item["item_id"]|int() and u[1] == "1" %}
+          <div style="display: flex; align-items: center;">
+          <div class="GrayRect Dshadow1 divFlexCol" style="display: flex; height: 80px;
+          margin: 1px 0 6px 0; width:max-content; padding: 10px 0 10px 0;
+          width: calc(100vw - 200px); min-width: fit-content; min-height: fit-content;">
+            <p class="whiteText" style="font-size: 20px; margin: 0 4px 6px 4px;"
+            >Этот предмет ({{item["item_id"]}}. {{ item["item_title"] }}) запрашивает: {{u[2]}}. (В кол. {{u[4]}})</p>
+            <div style="height: auto;">
+              <form method="post" action="/view/req/{{u[0]}}u{{u[3]}}" style="display: flex; margin: 4px 4px 0 4px ; width: max-content;">
+                <input  name="accept{{item['item_id']}}" type="submit" class="defBut1 GreenHov"
+                style="color: yellowgreen; width: auto;" value="Одобрить">
+                <div style="display: block; width: 20px; height: auto;"></div>
+                <input name="accept{{item['item_id']}}" type="submit" class="defBut1 GreenHov"
+                style="color: red; width: auto;" value="Отклонить">
+              </form>
+               
+            </div>
+          </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% if item['item_cond']|string() == "новый" %}
+        <script>document.getElementById("{{item['item_id']}}").style.borderColor = "yellowgreen" </script>
+        <script>document.getElementById("c{{item['item_id']}}").style.color = "yellowgreen" </script>
+        {% elif item['item_cond']|string() == "используемый" %}
+        <script>document.getElementById("{{item['item_id']}}").style.borderColor = "#ffff00" </script>
+        <script>document.getElementById("c{{item['item_id']}}").style.color = "#ffff00" </script>
+        {% else %}
+        <script>document.getElementById("{{item['item_id']}}").style.borderColor = "red" </script>
+        <script>document.getElementById("c{{item['item_id']}}").style.color = "red" </script>
+        {% endif %}
+
+        {% endfor %}
+        {% endif %}
+        </div>
+
+    {% if isadmin %}
+    <div class="divFlexCol" style="display: flex; align-items: center; justify-content: center;min-width: fit-content">
+      <div class="GrayRect" style="margin: 30px 0 20px 0;">
+          
+        <div class="whiteText" style="font-size: 18px; padding: 20px 30px 10px 30px; ">Вы Администратор. Вы можете добавить инвентарь:</div>
+        <form id="NewItem" method="post" action="/view/new" style="margin-bottom: 20px;">
+            <input class="inDark w140px" id="title" name="title" type="text" placeholder=" Название" required>
+            <input class="inDark w140px" id="Number" name="Number" type="number" placeholder=" Количество" required>
+            <input class="defBut1" style="width: max-content; color: yellowgreen;" type="submit" value="Добавить"
+            title="Новый предмет">
+        </form>
+      
+      </div>
+    <div class="GrayRect" style="margin: 20px 0 20px 0; padding: 20px;">
+      <p class="whiteText" style="font-size: 18px; margin: 5px 0 15px 0;">
+        Редактировать список покупок:
+      </p>
+      <form method="post" action="/view/tobuy" style="margin-bottom: 5px;">
+        <input class="inDark w140px" id="title" name="title" type="text" placeholder=" Название" required>
+        <input class="inDark w140px" id="cost" name="cost" type="number" placeholder=" Цена (руб.)">
+        <input class="inDark w140px" id="from" name="from" type="text" placeholder=" Поставщик" required>
+        <input class="defBut1" style="color: yellowgreen; width: auto;" type="submit"
+        title="Добавить в список" value="Добавить">
+      </form>
+    </div>
+    </div>
+    {% endif %}
+    {% if isadmin %}
+    <div class="divFlexCol" style="margin: 0px 0 20px 0; width: calc(90vw - 40px);
+    min-width: fit-content;">
+    {% for buy in tobuy %}
+      <div class="GrayRect" style="min-width:fit-content;width: calc(90vw - 200px);
+      height: 9vh; min-height: fit-content; margin: 20px; padding: 10px; display: flex;
+      align-items: center;justify-content: center;">
+      <div style="display: flex; flex-direction: row;">
+        <p class="whiteText texthere1 sd1" style="margin-left: 10px;">{{buy['buy_title']}}</p>
+        <p class="whiteText intext1 sd1">Цена: {{buy['buy_cost']}} руб.</p>
+        <p class="whiteText intext1 sd1">Поставщик: {{buy['buy_from']}}</p>
+      </div>
+      <div style="display: flex; align-items: center;justify-content: end;">
+        <p class="whiteText intext1 sd1" style="margin-left: 60px;">Статус: {{buy['buy_cond']}}</p>
+        <form method="post" action="/view/buydel/{{buy['buy_id']}}">
+          <input name="bdel{{buy['buy_id']}}" class="defBut1"
+          style="width: auto; color: red;" type="submit" value="Удалить">  
+        </form>
+      </div>
+      
+      </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    </div>
+    
+
+</body>
+</html>
+<style>
+    .texthere1{
+        margin: 6px 0 3px 15px;
+        font-size: 20px;
+    }
+    .intext1 {
+        margin: 6px 2px 0px 0;
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+    }
+    .divide1 {
+        display: block;
+        width: 4px;
+        height: auto;
+        background-color: black;
+        margin: 0 0px 0 15px;
+    }
+    .sm1 {
+        margin: 4px 0 4px 0;
+    }
+    .sm2{
+      margin: 5px 0;
+    }
+    
+    .font20px {
+      font-size: 20px;
+      /* margin: 2px; */
+    }
+    .w100px {
+      width: 100px;
+    }
+    .w140px{
+      width: 130px;
+    }
+    .sd1{
+      margin: 5px 20px 5px 20px;
+    }
+</style>

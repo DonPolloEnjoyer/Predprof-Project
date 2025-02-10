@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta lang="ru">
+    <title>Просмотр спортивного инвентаря | учёт инвентаря</title>
+    <link rel="stylesheet" href="/static/StyleDef.css">
+    <link rel="icon" type="image" href="/static/img/1Favicon1.png">
+    <meta name="Автор" content="Крылов Игорь">
+    <meta name="Команда" content="Добро">
+</head>
+<body class="main1">
+    <script src="/static/script.js"></script>
+    <div class="CenPar">
+        <div class="lightFill1 Dshadow1" style="display: flex; flex-direction: row;
+        height: max-content; margin: 35px 0 30px 0; justify-content: center; width: var(--RegNeedWidth);"
+        id="NotAuth1">
+        <p class="whiteText GrayRect" style="margin: 0% 10% 0% 10%;
+        padding: 20px 40px 20px 40px;  font-size: 38px;
+        ">Просмотр инвентаря</p>
+        </div>
+
+        {% for item in items %}
+        <div class="GrayRect Dshadow1" style="width: 200px; margin: 5px 0 5px 0;
+        display: flex; height: 80px;">
+          <div class="divFlexCol">
+            <p class="whiteText texthere1">{{ item["item_title"] }}</p>
+            <p class="whiteText texthere1">Кол. {{ item["item_number"] }}</p>
+          </div>
+        </div>
+        {% endfor %}
+
+    <div class="GrayRect">
+        {% if isadmin %}
+        <div>Вы Администратор, можете добавить инвентарь:</div>
+        <form id="NewItem" method="post">
+        <input id="title" name="title" type="text" placeholder="Название" required>
+        <input id="Number" name="Number" type="number" placeholder="Количество" required>
+        <input type="submit" value="Добавить">
+        </form>
+        {% endif %}
+    </div>
+    </div>
+    
+
+</body>
+</html>
+<style>
+    .texthere1{
+        margin: 8px 0 2px 20px;
+        font-size: 20px;
+    }
+
+</style>
