@@ -9,8 +9,8 @@
 #     Port = ''
 # DebugE = input("Enable debugger?(To bool): ")
 
-"""this host="192.168.1.24",port=3306,debug=True"""
-"""V6 host="2a00:1370:8184:1874:d46a:64bf:8a27:ce64",port=3306,debug=True"""
+"""this host="",port=3306,debug=True"""
+""" V6 host="",port=3306,debug=True"""
 # configure launch settings
 
 ip = ""
