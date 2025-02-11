@@ -2,7 +2,7 @@
 import sqlite3
 # from app import DATABASE, get_db_connection, init_db
 
-DATABASE = "D:\\Prog1\\PredprofOL1\\Server\\database.db"
+DATABASE = "database.db"
 
 def Get_db(db):
     conn = sqlite3.connect(db)
@@ -58,7 +58,7 @@ def SelIn():
     return sel
 
 # db_exec_schema("schemainv.sql")
-# db_exec_schema("D:\\Prog1\\PredprofOL1\\Server\\schemainv.sql")
+# db_exec_schema("schemainv.sql")
 # user = db.execute(
 #     "SELECT user_request_inv FROM userlist WHERE user_id = ?",
 #     (1, )).fetchone()[0]
