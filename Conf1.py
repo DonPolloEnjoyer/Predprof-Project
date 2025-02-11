@@ -10,7 +10,7 @@
 # DebugE = input("Enable debugger?(To bool): ")
 
 """this host="",port=3306,debug=True"""
-"""V6 host="",port=3306,debug=True"""
+""" V6 host="",port=3306,debug=True"""
 # configure launch settings
 
 ip = ""
